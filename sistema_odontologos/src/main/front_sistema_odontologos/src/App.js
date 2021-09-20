@@ -1,25 +1,62 @@
+import React, { useState, useEffect, Component } from "react";
 import logo from './logo.svg';
 import './App.css';
+import axios from "axios";
+import ListaOdontologos from "./components/ListaOdontologos";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const url = "http://localhost:8080/odontologos"
+const url2 = "https://restcountries.eu/rest/v2/all"
+
+class App extends Component {
+  
+
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+       data:[]
+    }
+  }
+  peticionGet = () => {
+    axios.get(url+"/todos").then(response => {
+      this.setState({ data: response.data });
+      console.log(response.data);
+    })
+  }
+
+  componentDidMount() {
+    this.peticionGet();
+  }
+  
+  render(){
+    return (
+      <div className="App">
+            <table className="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Matricula</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {this.state.data.map(odontologo =>{
+                        return(
+                            <tr>
+                                <td>{odontologo.id}</td>
+                                <td>{odontologo.nombre}</td>
+                                <td>{odontologo.apellido}</td>
+                                <td>{odontologo.matricula}</td>
+                            </tr>
+                        )
+                    })}
+                </tbody>
+            </table>
+        )
+      </div>
+    );
+  }
 }
 
 export default App;

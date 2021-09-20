@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/odontologos")
+@CrossOrigin("*")
 public class OdontologoController {
     @Autowired
     private OdontologoService odontologoService;
