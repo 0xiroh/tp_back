@@ -1,10 +1,7 @@
 package com.dh.tpback.sistema_odontologos.model;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 //Al utilizar un ORM, las clases se traducen a tablas en una base de datos a través del JPA, por lo tanto
 // debemos utilizar las siguientes anotaciones
 
@@ -13,7 +10,8 @@ import javax.persistence.Table;
 public class Odontologo {
 
     @Id
-    @Column(name = "id", nullable = false)
+    @SequenceGenerator(name = "odontologo_sequence", sequenceName = "odontologo_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "odontologo_sequence")
     private Long id;
 
     private String nombre;
@@ -59,5 +57,15 @@ public class Odontologo {
 
     public void setMatricula(String matricula) {
         this.matricula = matricula;
+    }
+
+    @Override
+    public String toString() {
+        return "Odontologo{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", matricula='" + matricula + '\'' +
+                '}';
     }
 }
